@@ -1,8 +1,16 @@
 "use client"
 import React from 'react'
+import { useRouter } from "next/navigation";
+
 
 const page = () => {
-  const handleSubmit = () => {};
+
+  const router = useRouter();
+
+  const handleSubmit = (e:any) => {
+    e.preventDefault();
+    router.push(`/chat/chatroom`);
+  };
 
   return (
     <div className="px-[37vw] py-[35vh]">
@@ -45,7 +53,7 @@ const page = () => {
           </div>
           <button
             type="submit"
-            onSubmit={handleSubmit}
+            onClick={handleSubmit}
             className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
           >
             Join Room

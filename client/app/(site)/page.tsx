@@ -1,5 +1,5 @@
 import Image from "next/image";
-import AuthForm from "./components/AuthForm";
+import AuthForm from "./Components/AuthForm";
 
 const Auth = () => {
   return (
