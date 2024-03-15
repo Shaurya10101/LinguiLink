@@ -23,10 +23,10 @@ const page = () => {
       Choose to chat with anyone without any language barrier with our real time translation chat room 
     </p>
     <section>
-    <button className='block' onClick={handleCreateRoom}>
+    <button className='block px-3 py-2 bg-blue-500 rounded-xl m-5' onClick={handleCreateRoom}>
       Create Room
     </button>
-    <button onClick={handleJoinRoom}>
+    <button className='block px-3 py-2 bg-blue-500 rounded-xl m-5' onClick={handleJoinRoom}>
       Join Room
     </button>
     </section>
