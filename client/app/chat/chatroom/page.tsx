@@ -5,46 +5,50 @@ import { io } from "socket.io-client";
 
 import React from "react";
 
-const page = () => {
+const Page = () => {
   const [socket, setSocket] = useState<any>(undefined);
   const [inbox, setInbox] = useState<any>([]);
-  const [message, setMessage]=useState("");
-  const [roomName, setRoomName]=useState("")
+  const [message, setMessage] = useState("");
 
-  const handleSendMessage = ()=>{
-    socket.emit("message", message, roomName);
+  const handleSendMessage = () => {
+    if (socket) {
+      socket.emit("message", message);
+    }
   }
 
   useEffect(() => {
-    const socket = io("http://localhost:3000");
-    
-    socket.on('message',(message)=>{
-      setInbox([...inbox, message])
-    })
-    setSocket(socket)
+    const newSocket = io("http://localhost:3000");
+
+    newSocket.on('message', (message) => {
+      setInbox((prevInbox: any) => [...prevInbox, message]);
+    });
+
+    setSocket(newSocket);
+
+    return () => {
+      newSocket.disconnect();
+    };
   }, []);
 
   return (
     <div className="pt-24">
       <div>
-        <div className="flex flex-col gap-5 mt-20 px-10 1g:px-48">
-          <div className="flex flex-col gap-2 border rounded-1g p-10">
-            {" "}
+        <div className="flex flex-col gap-5 mt-20 px-10 lg:px-48">
+          <div className="flex flex-col gap-2 border rounded-lg p-10">
             {inbox.map((message: string, index: number) => (
               <div key={index} className="border rounded px-4 py-2">
                 {message}
               </div>
-            ))}{" "}
+            ))}
           </div>
           <div className="flex gap-2 align-center justify-center">
             <input
               type="text"
               name="message"
               className="flex-1 bg-black text-white border rounded px-2 py-1"
-              onChange={(e)=>{
-                setMessage(e.target.value)
-              }}
-            />{" "}
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+            />
             <button className="w-40" onClick={handleSendMessage}>Send message</button>
           </div>
         </div>
@@ -53,4 +57,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
