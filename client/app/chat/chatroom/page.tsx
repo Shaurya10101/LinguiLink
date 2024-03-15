@@ -7,7 +7,7 @@ import React from "react";
 
 const page = () => {
   const [socket, setSocket] = useState<any>(undefined);
-  const [inbox, setInbox] = useState<any>(["hello", "nice"]);
+  const [inbox, setInbox] = useState<any>([]);
   const [message, setMessage]=useState("");
   const [roomName, setRoomName]=useState("")
 
@@ -17,6 +17,10 @@ const page = () => {
 
   useEffect(() => {
     const socket = io("http://localhost:3000");
+    
+    socket.on('message',(message)=>{
+      setInbox([...inbox, message])
+    })
     setSocket(socket)
   }, []);
 
@@ -28,7 +32,7 @@ const page = () => {
             {" "}
             {inbox.map((message: string, index: number) => (
               <div key={index} className="border rounded px-4 py-2">
-                Hello
+                {message}
               </div>
             ))}{" "}
           </div>
@@ -42,14 +46,6 @@ const page = () => {
               }}
             />{" "}
             <button className="w-40" onClick={handleSendMessage}>Send message</button>
-          </div>
-          <div className="flex gap-2 align-center justify-center">
-            <input
-              type="text"
-              name="message"
-              className="flex-1 bg-black border rounded px-2 py-1"
-            />{" "}
-            <button className="w-40">Join Room</button>
           </div>
         </div>
       </div>

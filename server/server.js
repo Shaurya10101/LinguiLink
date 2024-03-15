@@ -3,8 +3,7 @@ const io = require("socket.io")(3000, {
 });
 
 io.on("connection", (socket) => {
-  console.log("A user connected");
-  socket.on("message", (message, roomName) => {
-    console.log(message, roomName)
+  socket.on("message", (message) => {
+    io.emit("message",message)
   })
 });
