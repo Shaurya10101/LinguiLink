@@ -8,10 +8,10 @@ dotconfig = require('dotenv').config()
 const axios = require('axios')
 
 io.on("connection", (socket) => {
-  socket.on("message", async (message) => {
+  socket.on("message", async ({message, targetLanguage}) => {
     const encodedParams = new URLSearchParams();
     encodedParams.set('source_language', 'auto');
-    encodedParams.set('target_language', 'es');
+    encodedParams.set('target_language', targetLanguage);
     encodedParams.set('text', message);
     const options = {
       method: 'POST',
@@ -26,7 +26,7 @@ io.on("connection", (socket) => {
     const response = await axios.request(options);
     console.log(response.data);
     transMessage = response.data.data.translatedText
-    io.emit("message", transMessage )
+    io.emit("message", "Original: " + message + "Translated: " + transMessage )
   })
 
   socket.on("disconnect", () => {
