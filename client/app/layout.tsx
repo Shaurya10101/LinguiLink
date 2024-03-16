@@ -2,10 +2,11 @@ import './globals.css'
 import AuthContext from './context/AuthContext'
 
 import ToasterContext from './context/ToasterContext'
+import Navbar from '@/components/Navbar'
 
 export const metadata = {
-  title: 'Messenger',
-  description: 'Messenger Clone',
+  title: 'LinguiLink',
+  description: 'Real time translation website',
 }
 
 export default function RootLayout({
@@ -17,6 +18,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <AuthContext>
+          <Navbar/>
           <ToasterContext />
           {children}
         </AuthContext>

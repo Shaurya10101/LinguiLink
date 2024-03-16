@@ -1,13 +1,16 @@
 "use client";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
+import { io } from "socket.io-client";
 
 const page = () => {
   const router = useRouter();
   const [roomName,setRoomName] = useState("");
+  const socket = io("http://localhost:3000");
 
-  const handleSubmit = (e:any) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    socket.emit("createRoom", roomName);
     router.push(`/chat/chatroom`);
   };
 

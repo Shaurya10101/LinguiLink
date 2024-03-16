@@ -25,13 +25,13 @@ const Navbar = () => {
     },
     {
       id: 4,
-      linkname: "about",
-      link: "/about",
+      linkname: "video",
+      link: "/video",
     },
     {
       id: 5,
-      linkname: "contact",
-      link: "/contact",
+      linkname: "docs",
+      link: "/docs",
     },
   ];
 
