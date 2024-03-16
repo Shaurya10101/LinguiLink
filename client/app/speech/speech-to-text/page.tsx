@@ -1,6 +1,8 @@
 "use client"
 import { useEffect, useState } from 'react';
 import { io, Socket } from 'socket.io-client';
+import Mic from '@/public/mic.png'
+import Image from 'next/image';
 
 const TranslatePage = () => {
   const [socket, setSocket] = useState<Socket>();
@@ -68,20 +70,27 @@ const TranslatePage = () => {
   }, []);
 
   return (
-    <div className='pt-24'>
-      <button onClick={handleRecordAudio}>
-        {isRecording ? 'Stop Recording' : 'Record Audio'}
-      </button>
-      <br />
-      <button onClick={sendAudioToServer}>
-        Send Audio to Server
-      </button>
-      <br />
-      <textarea
-        value={translatedText}
-        onChange={(e) => setTranslatedText(e.target.value)}
-        placeholder="Translated Text"
-      />
+    <div className="flex items-center justify-center h-screen">
+      <div className="grid grid-cols-2 items-center gap-[20vw]">
+        <div className='flex flex-col items-center'>
+        <Image src={Mic} alt="Microphone" width={200} height={200} />
+        <button onClick={handleRecordAudio} className="bg-blue-500 text-white px-4 py-2 rounded-full shadow-lg mb-4">
+          {isRecording ? 'Stop Recording' : 'Record Audio'}
+        </button>
+        <button onClick={sendAudioToServer} className="bg-green-500 text-white px-4 py-2 rounded-full shadow-lg mb-4">
+          Send Audio to Server
+        </button>
+        </div>
+        <div>
+        <textarea
+          value={translatedText}
+          onChange={(e) => setTranslatedText(e.target.value)}
+          placeholder="Translated Text"
+          className="w-full h-48 px-4 py-2 rounded-lg border"
+        />
+
+        </div>
+      </div>
     </div>
   );
 };
