@@ -13,6 +13,7 @@ const Page = () => {
     if (socket) {
       socket.emit("message", message);
     }
+    setMessage("");
   }
 
   useEffect(() => {
@@ -49,11 +50,12 @@ const Page = () => {
             <input
               type="text"
               name="message"
-              className="flex-1 bg-black text-white border rounded px-2 py-1"
+              className="flex-1 bg-white text-black border px-2 py-1 rounded-lg"
               value={message}
+              placeholder="Type a message..."
               onChange={(e) => setMessage(e.target.value)}
             />
-            <button className="w-40" onClick={handleSendMessage}>Send message</button>
+            <button className="w-40 bg-blue-700 text-white rounded-xl" onClick={handleSendMessage}>Send message</button>
           </div>
         </div>
       </div>
