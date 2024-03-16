@@ -1,6 +1,9 @@
 const io = require("socket.io")(3000, {
   cors: { origin: "http://localhost:3001", methods: ["GET", "POST"] },
 });
+dotconfig = require('dotenv').config()
+
+
 
 const axios = require('axios')
 
@@ -15,7 +18,7 @@ io.on("connection", (socket) => {
       url: 'https://text-translator2.p.rapidapi.com/translate',
       headers: {
         'content-type': 'application/x-www-form-urlencoded',
-        'X-RapidAPI-Key': '1445dc4045msheb401f20a79c9f6p10b974jsnf0620393f3e7',
+        'X-RapidAPI-Key': process.env.RAPID_API_KEY,
         'X-RapidAPI-Host': 'text-translator2.p.rapidapi.com'
       },
       data: encodedParams,
